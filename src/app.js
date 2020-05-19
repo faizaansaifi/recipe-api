@@ -28,6 +28,10 @@ app.post('/search', (req, res) => {
     // res.send(data).status(200)
 })
 
+app.get('/check', (req, res) => {
+    res.send('Text just to check the application')
+})
+
 app.listen(PORT, () =>
     console.log('Express server is running on localhost: ', PORT)
 );
