@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/recipes', {
+mongoose.connect("mongodb+srv://recipe:Saifi@123@cluster0-buzwz.mongodb.net/test?retryWrites=true&w=majority", {
     useUnifiedTopology: true,
     useCreateIndex: true,
 })
