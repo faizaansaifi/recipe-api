@@ -25,6 +25,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
+
 app.get('/check', (req, res) => {
     res.send('Dummy text just for Check');
 })
@@ -39,11 +40,8 @@ app.post('/search', (req, res) => {
                 data.push(items)
             }).then((recipe) => {
                 res.json(data).send().status(200);
-            }).catch(e => console.log("Error 1"))
-        }).catch(e => res.status(404).send('Error'))
-    // Recipes.find({
-    //         keywords: {'$in': req.body.search}}).
-    // res.send(recipe).status(200)
+            }).catch(e => console.log("Data returns null"))
+        }).catch(e => res.status(404).send('Error: Data not Found'))
 })
 
 app.get('/test', (req, res) => {
@@ -58,18 +56,6 @@ app.get('/test', (req, res) => {
     }).catch(e => res.status(404).send('Error : '))
 })
 
-app.get('/vila', (req, res) => {
-    let q =[];
-    mongo.then((client) => {
-            client.db().collection('products').find().forEach(items => {
-                q.push(items)
-                console.log(q)
-            }).then((data) => {
-                res.json(q).send().status(200);
-            })
-        }).catch(e => console.log('Error'))
-    // res.send(q).status(200)
-})
 
 app.listen(PORT, () =>
     console.log('Express server is running on localhost: ', PORT)
