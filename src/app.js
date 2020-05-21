@@ -14,6 +14,17 @@ const PORT = process.env.PORT || 8080;
 
 const mongo = MongoClient.connect("mongodb+srv://recipe:OKR0QMYNTjkwDFT3@cluster0-buzwz.mongodb.net/dummy?retryWrites=true&w=majority");
 // const mongo = MongoClient.connect("mongodb+srv://dummy:apache200@cluster0-buzwz.mongodb.net/dummy?retryWrites=true&w=majority");
+
+app.use((req, res, next) => {
+    // Set CORS headers so that the React SPA is able to communicate with this server
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'GET,POST,PUT,PATCH,DELETE,OPTIONS'
+    );
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 app.get('/check', (req, res) => {
     res.send('Dummy text just for Check');
 })
@@ -27,7 +38,6 @@ app.post('/search', (req, res) => {
             }).forEach((items) =>{
                 data.push(items)
             }).then((recipe) => {
-                console.log(data)
                 res.json(data).send().status(200);
             }).catch(e => console.log("Error 1"))
         }).catch(e => res.status(404).send('Error'))
